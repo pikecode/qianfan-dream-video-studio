@@ -9,6 +9,11 @@ export { PhonePreview } from './components/PhonePreview'
 
 // Hooks
 export { useVideoStudio } from './hooks/useVideoStudio'
+export { useI18n } from './hooks/useI18n'
+
+// I18n
+export { I18nProvider, useI18nContext } from './contexts/I18nContext'
+export { locales, getTranslations } from './locales'
 
 // Types
 export type {
@@ -19,7 +24,10 @@ export type {
   LocaleConfig,
   ContentTab,
   MainTab,
-  GenerationOptions
+  GenerationOptions,
+  Language,
+  I18nConfig,
+  I18nContext
 } from './types'
 
 // Utils (can be added later)

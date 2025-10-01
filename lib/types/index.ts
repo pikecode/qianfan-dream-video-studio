@@ -32,6 +32,9 @@ export interface LocaleConfig {
 export type ContentTab = '剧本' | '音频' | '图片' | '视频'
 export type MainTab = '短剧' | '网文小说'
 
+// Re-export i18n types
+export type { Language, I18nConfig, I18nContext } from './i18n'
+
 export interface GenerationOptions {
   model?: string
   style?: string

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { ChevronDown, FolderOpen, Wand2 } from 'lucide-react'
+import { useI18nContext } from '../../contexts/I18nContext'
 
 interface SidebarProps {
   selectedTool: 'works' | 'create'
@@ -10,6 +11,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   selectedTool,
   onToolChange
 }) => {
+  const { t } = useI18nContext()
   const [worksExpanded, setWorksExpanded] = useState(false)
   const [toolsExpanded, setToolsExpanded] = useState(true)
 
@@ -29,7 +31,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${
                 worksExpanded ? 'rotate-0' : '-rotate-90'
               }`} />
-              <span className="text-sm font-medium text-gray-700">作品集</span>
+              <span className="text-sm font-medium text-gray-700">{t('sidebar.portfolio')}</span>
             </div>
           </button>
 
@@ -37,7 +39,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <div className="ml-6 mt-1 space-y-1">
               <div className="py-8 text-center text-gray-400">
                 <FolderOpen className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                <p className="text-xs">暂无作品</p>
+                <p className="text-xs">{t('sidebar.noWorks')}</p>
               </div>
             </div>
           )}
@@ -53,7 +55,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${
                 toolsExpanded ? 'rotate-0' : '-rotate-90'
               }`} />
-              <span className="text-sm font-medium text-gray-700">创作工具</span>
+              <span className="text-sm font-medium text-gray-700">{t('sidebar.creativeTools')}</span>
             </div>
           </button>
 
@@ -74,7 +76,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     selectedTool === 'create' ? 'text-white' : 'text-blue-500'
                   }`} />
                 </div>
-                <span className="text-sm font-medium">一键创作</span>
+                <span className="text-sm font-medium">{t('sidebar.oneClickCreate')}</span>
               </button>
             </div>
           )}

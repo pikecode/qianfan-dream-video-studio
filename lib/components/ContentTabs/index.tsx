@@ -1,5 +1,6 @@
 import React from 'react'
 import { FileText, Music, Image, Video, Sparkles } from 'lucide-react'
+import { useI18nContext } from '../../contexts/I18nContext'
 import type { ContentTab } from '../../types'
 
 interface ContentTabsProps {
@@ -11,11 +12,13 @@ export const ContentTabs: React.FC<ContentTabsProps> = ({
   activeTab,
   onTabChange
 }) => {
+  const { t } = useI18nContext()
+
   const tabs = [
-    { id: '剧本' as ContentTab, label: '剧本', icon: FileText, color: 'text-green-600' },
-    { id: '音频' as ContentTab, label: '音频', icon: Music, color: 'text-purple-600' },
-    { id: '图片' as ContentTab, label: '图片', icon: Image, color: 'text-blue-600' },
-    { id: '视频' as ContentTab, label: '视频', icon: Video, color: 'text-red-600' }
+    { id: '剧本' as ContentTab, label: t('tabs.script'), icon: FileText, color: 'text-green-600' },
+    { id: '音频' as ContentTab, label: t('tabs.audio'), icon: Music, color: 'text-purple-600' },
+    { id: '图片' as ContentTab, label: t('tabs.image'), icon: Image, color: 'text-blue-600' },
+    { id: '视频' as ContentTab, label: t('tabs.video'), icon: Video, color: 'text-red-600' }
   ]
 
   return (
@@ -25,7 +28,7 @@ export const ContentTabs: React.FC<ContentTabsProps> = ({
           {/* Left: Title */}
           <div className="flex items-center space-x-2">
             <Sparkles className="w-4 h-4 text-blue-500" />
-            <span className="text-sm font-medium text-gray-900">一键创作</span>
+            <span className="text-sm font-medium text-gray-900">{t('tabs.oneClickCreate')}</span>
           </div>
 
           {/* Right: Content Tabs */}
