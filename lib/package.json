@@ -1,0 +1,43 @@
+{
+  "name": "@qianfan/video-studio",
+  "version": "1.0.0",
+  "description": "A reusable video studio component library for short video production",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "framer-motion": ">=10.0.0",
+    "lucide-react": ">=0.300.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "rollup": "^3.0.0",
+    "rollup-plugin-typescript2": "^0.35.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "typescript": "^4.9.0"
+  },
+  "keywords": [
+    "video-editor",
+    "react-component",
+    "short-video",
+    "ai-generation",
+    "multimedia"
+  ],
+  "author": "Qianfan Team",
+  "license": "MIT"
+}
