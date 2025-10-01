@@ -1,262 +1,163 @@
-# Short Video Editor
+# Qianfan Dream Video Studio
 
-A modern, feature-rich web application for creating and editing short videos. Built with React, TypeScript, and cutting-edge web technologies to provide a seamless video editing experience in the browser.
+一个用于短视频制作的可复用组件库，支持AI生成内容、多媒体时间轴管理和实时预览。
 
-![Short Video Editor](https://via.placeholder.com/800x400/1e293b/3b82f6?text=Short+Video+Editor)
+## ✨ 核心特性
 
-## ✨ Features
+### 🤖 AI 智能创作
+- **智能剧本生成**: 基于AI模型自动生成短视频剧本
+- **音频合成**: 多种音色的语音合成，支持情感调节
+- **图像生成**: AI生成高质量视觉素材
+- **视频创作**: 智能视频片段生成和编辑
 
-### 🎬 Video Production
-- **Multi-format Upload**: Support for MP4, WebM, MOV, AVI, and MKV files
-- **Drag & Drop Interface**: Intuitive file upload with visual feedback
-- **Real-time Preview**: Instant video playback with custom controls
-- **Timeline Editing**: Professional timeline with frame-accurate editing
+### 🎬 专业编辑
+- **多媒体时间轴**: 精确的时间轴编辑和管理
+- **实时预览**: 手机端效果实时预览
+- **内容分类**: 剧本、音频、图片、视频分类管理
+- **项目管理**: 完整的创作项目工作流
 
-### ✂️ Editing Tools
-- **Precision Trimming**: Cut and trim video clips with millisecond accuracy
-- **Clip Management**: Reorder, duplicate, and split video segments
-- **Merge & Combine**: Seamlessly join multiple video clips
-- **Undo/Redo**: Full editing history with unlimited undo/redo
+### 🎨 用户体验
+- **响应式设计**: 适配不同屏幕尺寸
+- **主题定制**: 支持自定义主题配置
+- **国际化**: 多语言支持
+- **组件化架构**: 高度可复用的组件设计
 
-### 📝 Text & Overlays
-- **Custom Text Overlays**: Add styled text with timing controls
-- **Rich Typography**: Multiple fonts, sizes, colors, and styles
-- **Positioning Control**: Precise text placement with visual editor
-- **Animation Support**: Text entrance and exit animations
+## 🚀 快速开始
 
-### 🎨 Visual Effects
-- **Color Correction**: Brightness, contrast, and saturation adjustments
-- **Filters & Effects**: Professional-grade visual filters
-- **Transitions**: Smooth transitions between clips
-- **Responsive Canvas**: High-quality rendering at any resolution
-
-### 📤 Export & Sharing
-- **Multiple Formats**: Export to MP4, WebM, or MOV
-- **Quality Presets**: From web-optimized to 4K ultra-high quality
-- **Bitrate Control**: Fine-tune compression settings
-- **Batch Processing**: Export multiple videos simultaneously
-
-### 🎯 User Experience
-- **Project Management**: Organize videos into projects
-- **Auto-save**: Never lose your work with automatic saving
-- **Responsive Design**: Works seamlessly on desktop and mobile
-- **Dark Theme**: Modern, eye-friendly interface
-- **Keyboard Shortcuts**: Speed up your workflow
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js 16.0 or higher
-- npm or yarn package manager
-- Modern web browser with video support
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/short-video-editor.git
-   cd short-video-editor
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. **Start the development server**
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-
-4. **Open your browser**
-   Navigate to `http://localhost:3000` to start using the editor.
-
-### Building for Production
+### 作为组件库使用
 
 ```bash
+# 在你的项目中引用本地包
+npm install file:./path/to/qianfan-dream-video-studio/lib
+```
+
+```tsx
+import React from 'react'
+import { VideoStudio } from '@qianfan/video-studio'
+import type { StudioConfig } from '@qianfan/video-studio'
+
+const config: StudioConfig = {
+  apiEndpoint: 'https://your-api.com',
+  theme: {
+    primaryColor: '#3B82F6'
+  },
+  features: {
+    enableAIGeneration: true,
+    enableVideoPreview: true
+  }
+}
+
+function App() {
+  return (
+    <VideoStudio
+      config={config}
+      initialState={{
+        activeTab: '短剧',
+        activeContentTab: '音频'
+      }}
+    />
+  )
+}
+```
+
+### 运行示例项目
+
+```bash
+# 1. 构建组件库
+cd lib
+npm install
 npm run build
-# or
-yarn build
+
+# 2. 运行示例
+cd ../examples/basic-usage
+npm install
+npm run dev
 ```
 
-The built files will be in the `dist` directory, ready for deployment.
-
-## 🏗️ Project Structure
+## 📦 项目结构
 
 ```
-src/
-├── components/
-│   ├── Layout/           # App layout and navigation
-│   ├── VideoUpload/      # File upload components
-│   ├── VideoPlayer/      # Video playback and controls
-│   ├── Timeline/         # Timeline and editing tools
-│   ├── TextOverlay/      # Text overlay editor
-│   └── Export/           # Video export functionality
-├── pages/
-│   ├── Home.tsx          # Landing page
-│   ├── Editor.tsx        # Main editing interface
-│   ├── Projects.tsx      # Project management
-│   └── Settings.tsx      # Application settings
-├── store/
-│   └── videoStore.ts     # State management with Zustand
-├── utils/
-│   └── timeFormat.ts     # Time formatting utilities
-└── styles/
-    └── index.css         # Global styles with Tailwind CSS
+qianfan-dream-video-studio/
+├── lib/                    # 组件库源码
+│   ├── components/         # 可复用组件
+│   │   ├── VideoStudio/    # 主工作室组件
+│   │   ├── ContentTabs/    # 内容标签页
+│   │   ├── MediaTimeline/  # 媒体时间轴
+│   │   └── PhonePreview/   # 手机预览
+│   ├── hooks/             # React hooks
+│   ├── types/             # TypeScript 类型
+│   └── index.ts           # 统一导出
+├── examples/              # 使用示例
+│   └── basic-usage/       # 基础用法示例
+└── src/                   # 原始项目文件
 ```
 
-## 🛠️ Technology Stack
+## 🔧 API 配置
 
-### Frontend Framework
-- **React 18**: Modern React with hooks and concurrent features
-- **TypeScript**: Type-safe development with excellent IDE support
-- **Vite**: Lightning-fast build tool and development server
+### StudioConfig
 
-### State Management
-- **Zustand**: Lightweight, TypeScript-first state management
-- **React Context**: For theme and user preferences
+```typescript
+interface StudioConfig {
+  apiEndpoint?: string      // API 服务地址
+  theme?: ThemeConfig       // 主题配置
+  features?: FeatureFlags   // 功能开关
+  i18n?: LocaleConfig      // 国际化配置
+}
+```
 
-### UI/UX
-- **Tailwind CSS**: Utility-first CSS framework
-- **Framer Motion**: Smooth animations and transitions
-- **Lucide React**: Beautiful, customizable icons
-- **React Hot Toast**: Elegant notification system
+### 主要组件
 
-### Video Processing
-- **HTML5 Video API**: Native browser video handling
-- **Canvas API**: Real-time video rendering and effects
-- **Web Workers**: Background processing for performance
-- **FFmpeg.wasm**: Client-side video processing (future enhancement)
+- **VideoStudio**: 主组件，包含完整的视频工作室界面
+- **ContentTabs**: 内容类型切换标签（剧本、音频、图片、视频）
+- **MediaTimeline**: 媒体时间轴和内容列表
+- **PhonePreview**: 手机端预览界面
 
-### File Handling
-- **React Dropzone**: Drag-and-drop file uploads
-- **File API**: Browser-native file processing
-- **URL.createObjectURL**: Efficient video preview
+## 🛠 开发
 
-### Development Tools
-- **ESLint**: Code quality and consistency
-- **Prettier**: Code formatting
-- **Husky**: Git hooks for quality assurance
+### 组件库开发
 
-## 📱 Supported Browsers
+```bash
+cd lib
+npm run dev    # 监听模式构建
+npm run build  # 生产构建
+```
 
-- **Chrome**: 90+ (recommended)
-- **Firefox**: 88+
-- **Safari**: 14+
-- **Edge**: 90+
+### 添加新组件
 
-## 🎨 Customization
+1. 在 `lib/components/` 下创建组件文件夹
+2. 实现组件逻辑
+3. 在 `lib/index.ts` 中导出
+4. 更新类型定义
 
-### Themes
-The application supports custom themes. Modify `tailwind.config.js` to customize colors:
+## 🔄 在其他项目中使用
 
-```javascript
-theme: {
-  extend: {
-    colors: {
-      primary: {
-        // Your primary color palette
-      },
-      secondary: {
-        // Your secondary color palette
-      }
-    }
+### Monorepo 方式
+
+```json
+{
+  "workspaces": [
+    "packages/video-studio",
+    "apps/*"
+  ]
+}
+```
+
+### 文件引用方式
+
+```json
+{
+  "dependencies": {
+    "@qianfan/video-studio": "file:../video-studio/lib"
   }
 }
 ```
 
-### Adding Effects
-Create new effects by extending the effects system:
+### Git Submodule 方式
 
-```typescript
-interface VideoEffect {
-  id: string
-  name: string
-  apply: (canvas: HTMLCanvasElement, options: any) => void
-}
+```bash
+git submodule add https://github.com/your/video-studio.git libs/video-studio
 ```
 
-## 🔧 Configuration
+## 📝 许可证
 
-### Environment Variables
-Create a `.env.local` file for custom configuration:
-
-```env
-VITE_APP_NAME=My Video Editor
-VITE_MAX_FILE_SIZE=104857600  # 100MB
-VITE_SUPPORTED_FORMATS=mp4,webm,mov,avi,mkv
-```
-
-### Build Configuration
-Customize the build process in `vite.config.ts`:
-
-```typescript
-export default defineConfig({
-  // Your custom configuration
-  build: {
-    target: 'es2020',
-    outDir: 'dist',
-    sourcemap: true
-  }
-})
-```
-
-## 📊 Performance
-
-### Optimization Features
-- **Lazy Loading**: Components load only when needed
-- **Virtual Scrolling**: Handle large project lists efficiently
-- **Web Workers**: Offload heavy processing from main thread
-- **Memory Management**: Automatic cleanup of video resources
-- **Progressive Enhancement**: Graceful degradation on older browsers
-
-### Performance Tips
-- Use lower preview quality for better performance during editing
-- Export at lower bitrates for faster processing
-- Close unused projects to free memory
-- Use shorter clips for real-time preview
-
-## 🤝 Contributing
-
-We welcome contributions! Please follow these steps:
-
-1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Commit your changes**: `git commit -m 'Add amazing feature'`
-4. **Push to branch**: `git push origin feature/amazing-feature`
-5. **Open a Pull Request**
-
-### Development Guidelines
-- Write TypeScript with proper types
-- Follow the existing code style
-- Add tests for new features
-- Update documentation as needed
-- Use semantic commit messages
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [React](https://reactjs.org/) - UI framework
-- [Tailwind CSS](https://tailwindcss.com/) - Styling
-- [Framer Motion](https://www.framer.com/motion/) - Animations
-- [Zustand](https://github.com/pmndrs/zustand) - State management
-- [Vite](https://vitejs.dev/) - Build tool
-
-## 📞 Support
-
-- **Documentation**: [Wiki](https://github.com/yourusername/short-video-editor/wiki)
-- **Issues**: [GitHub Issues](https://github.com/yourusername/short-video-editor/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/short-video-editor/discussions)
-
----
-
-Made with ❤️ by the Short Video Editor Team
-
--- 202510010800
+MIT License
