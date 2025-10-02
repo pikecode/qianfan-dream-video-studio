@@ -45,7 +45,7 @@ export const VideoStudio: React.FC<VideoStudioProps> = ({
   }
 
   return (
-    <I18nProvider initialLanguage={language}>
+    <I18nProvider initialLanguage={language} language={language}>
       <VideoStudioContext.Provider value={contextValue}>
         <div className={`min-h-screen bg-gray-50 flex flex-col ${className}`}>
           {/* Header */}
