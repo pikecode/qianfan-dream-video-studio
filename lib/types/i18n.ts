@@ -1,4 +1,4 @@
-export type Language = 'zh' | 'en'
+export type Language = 'zh' | 'en' | 'ja'
 
 export interface I18nConfig {
   language: Language
