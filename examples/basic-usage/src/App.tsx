@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { VideoStudio } from '@qianfan/video-studio'
 import type { StudioConfig, Language } from '@qianfan/video-studio'
 
@@ -24,77 +24,117 @@ const config: StudioConfig = {
 
 function App() {
   const [language, setLanguage] = useState<Language>('zh')
+  const [isExpanded, setIsExpanded] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // 点击外部自动收起
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsExpanded(false)
+      }
+    }
+
+    if (isExpanded) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isExpanded])
+
+  const getLanguageFlag = (lang: Language) => {
+    switch (lang) {
+      case 'zh': return '🇨🇳'
+      case 'en': return '🇺🇸'
+      case 'ja': return '🇯🇵'
+      default: return '🇨🇳'
+    }
+  }
 
   const getLanguageDisplay = (lang: Language) => {
     switch (lang) {
       case 'zh': return '中文'
-      case 'en': return 'English'
-      case 'ja': return '日本語'
+      case 'en': return 'EN'
+      case 'ja': return '日本'
       default: return '中文'
     }
   }
 
   return (
     <div className="App">
-      {/* Enhanced Language Demo Switcher */}
-      <div className="fixed top-4 right-4 z-50 bg-white shadow-xl rounded-xl p-5 border border-gray-200 backdrop-blur-sm bg-white/95 min-w-[280px]">
-        <div className="flex items-center space-x-2 mb-4">
-          <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-            <span className="text-white text-xs">🌐</span>
+      {/* Compact Language Switcher */}
+      <div ref={dropdownRef} className="fixed top-4 right-4 z-50">
+        {/* Collapsed State - Language Toggle Button */}
+        {!isExpanded && (
+          <button
+            onClick={() => setIsExpanded(true)}
+            className="group bg-white hover:bg-gray-50 shadow-lg hover:shadow-xl border border-gray-200 rounded-lg px-3 py-2 transition-all duration-200 flex items-center space-x-2"
+          >
+            <span className="text-lg">{getLanguageFlag(language)}</span>
+            <span className="text-sm font-medium text-gray-700">{getLanguageDisplay(language)}</span>
+            <svg className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        )}
+
+        {/* Expanded State - Language Options */}
+        {isExpanded && (
+          <div className="bg-white shadow-xl border border-gray-200 rounded-lg p-3 min-w-[140px]">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-3 pb-2 border-b border-gray-100">
+              <div className="flex items-center space-x-1">
+                <span className="text-sm">🌐</span>
+                <span className="text-xs font-medium text-gray-600">语言</span>
+              </div>
+              <button
+                onClick={() => setIsExpanded(false)}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Language Options */}
+            <div className="space-y-1">
+              {[
+                { code: 'zh' as Language, flag: '🇨🇳', name: '中文' },
+                { code: 'en' as Language, flag: '🇺🇸', name: 'English' },
+                { code: 'ja' as Language, flag: '🇯🇵', name: '日本語' }
+              ].map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => {
+                    setLanguage(lang.code)
+                    setIsExpanded(false)
+                  }}
+                  className={`w-full flex items-center space-x-2 px-2 py-1.5 rounded text-sm transition-all duration-150 ${
+                    language === lang.code
+                      ? 'bg-blue-500 text-white'
+                      : 'hover:bg-gray-100 text-gray-700'
+                  }`}
+                >
+                  <span>{lang.flag}</span>
+                  <span className="font-medium">{lang.name}</span>
+                  {language === lang.code && (
+                    <span className="ml-auto text-xs">✓</span>
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Tip */}
+            <div className="mt-2 pt-2 border-t border-gray-100">
+              <p className="text-xs text-gray-500 text-center">
+                Header右上角也可切换
+              </p>
+            </div>
           </div>
-          <h3 className="text-sm font-semibold text-gray-800">多语言演示 / Language Demo</h3>
-        </div>
-
-        <p className="text-xs text-gray-600 mb-4 leading-relaxed">
-          <span className="font-medium">两种切换方式：</span><br/>
-          • 下方按钮 (演示快捷切换)<br/>
-          • Header右上角下拉菜单 (组件内置)
-        </p>
-
-        <div className="grid grid-cols-1 gap-2 mb-4">
-          <button
-            onClick={() => setLanguage('zh')}
-            className={`flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 transform ${
-              language === 'zh'
-                ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md scale-105'
-                : 'bg-gray-50 text-gray-700 hover:bg-gray-100 hover:scale-102'
-            }`}
-          >
-            <span className="text-base">🇨🇳</span>
-            <span>中文 (简体)</span>
-          </button>
-          <button
-            onClick={() => setLanguage('en')}
-            className={`flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 transform ${
-              language === 'en'
-                ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md scale-105'
-                : 'bg-gray-50 text-gray-700 hover:bg-gray-100 hover:scale-102'
-            }`}
-          >
-            <span className="text-base">🇺🇸</span>
-            <span>English</span>
-          </button>
-          <button
-            onClick={() => setLanguage('ja')}
-            className={`flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 transform ${
-              language === 'ja'
-                ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md scale-105'
-                : 'bg-gray-50 text-gray-700 hover:bg-gray-100 hover:scale-102'
-            }`}
-          >
-            <span className="text-base">🇯🇵</span>
-            <span>日本語</span>
-          </button>
-        </div>
-
-        <div className="pt-3 border-t border-gray-100">
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-500">当前语言:</span>
-            <span className="text-xs font-semibold text-gray-700 bg-gray-100 px-2 py-1 rounded">
-              {getLanguageDisplay(language)}
-            </span>
-          </div>
-        </div>
+        )}
       </div>
 
       <VideoStudio
