@@ -64,8 +64,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* Compact Language Switcher */}
-      <div ref={dropdownRef} className="fixed top-4 right-4 z-50">
+      {/* Demo Language Switcher */}
+      <div ref={dropdownRef} className="fixed top-4 left-4 z-50">
         {/* Collapsed State - Language Toggle Button */}
         {!isExpanded && (
           <button
@@ -86,8 +86,8 @@ function App() {
             {/* Header */}
             <div className="flex items-center justify-between mb-3 pb-2 border-b border-gray-100">
               <div className="flex items-center space-x-1">
-                <span className="text-sm">🌐</span>
-                <span className="text-xs font-medium text-gray-600">语言</span>
+                <span className="text-sm">🎮</span>
+                <span className="text-xs font-medium text-gray-600">演示</span>
               </div>
               <button
                 onClick={() => setIsExpanded(false)}
@@ -130,7 +130,7 @@ function App() {
             {/* Tip */}
             <div className="mt-2 pt-2 border-t border-gray-100">
               <p className="text-xs text-gray-500 text-center">
-                Header右上角也可切换
+                右上角为组件内置切换器
               </p>
             </div>
           </div>
